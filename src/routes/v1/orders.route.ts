@@ -12,7 +12,7 @@ router.route('/')
     .patch(asyncHandler(auth), asyncHandler(OrderController.update))
     .delete(asyncHandler(auth), asyncHandler(OrderController.delete));
 
-router.post('/response', asyncHandler(OrderController.handleResponse))
+router.get('/response', asyncHandler(OrderController.handleResponse))
 router.post('/buy/:productId', asyncHandler(auth), asyncHandler(OrderController.placeOrder));
 
 export default router;

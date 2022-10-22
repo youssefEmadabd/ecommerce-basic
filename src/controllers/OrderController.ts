@@ -42,9 +42,11 @@ class OrderController extends Controller<IOrder, OrderService> {
         const canceled: String = req.query.canceled
 
         if (canceled) {
+            res.send("Canceled transaction")
             console.log("🚀 ~ file: OrderController.ts ~ line 16 ~ OrderController ~ handleResponse ~ canceled", canceled)
         }
         if (success) {
+            res.send("successful transaction")
             console.log("🚀 ~ file: OrderController.ts ~ line 14 ~ OrderController ~ handleResponse ~ success", success)
         }
         res.status(httpStatus.OK).send()
@@ -79,7 +81,7 @@ class OrderController extends Controller<IOrder, OrderService> {
         console.log(orderList)
 
         const session = await createCheckoutSession(orderList)
-        res.redirect(303, session.url);
+        res.send(session.url);
     }
 }
 export default new OrderController(orderService);
