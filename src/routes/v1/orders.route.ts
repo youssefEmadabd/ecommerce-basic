@@ -14,5 +14,6 @@ router.route('/')
 
 router.get('/response', asyncHandler(OrderController.handleResponse))
 router.post('/buy/:productId', asyncHandler(auth), asyncHandler(OrderController.placeOrder));
+router.post('/callback', asyncHandler(OrderController.callback))
 
 export default router;

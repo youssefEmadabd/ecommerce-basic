@@ -83,5 +83,12 @@ class OrderController extends Controller<IOrder, OrderService> {
         const session = await createCheckoutSession(orderList)
         res.send(session.url);
     }
+
+    async callback(req: IReq, res: IRes, next: INext): Promise<void> {
+        console.log(req.body)
+        console.log(req.query)
+        console.log(req.params)
+        res.status(204).send()
+    }
 }
 export default new OrderController(orderService);
