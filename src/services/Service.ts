@@ -43,6 +43,34 @@ export default class Service<IModel extends Document> {
         return document;
     }
 
+    async getAllWithPagination(
+        filter: FilterQuery<IModel>,
+        options: ServiceOptions = {},
+    ): Promise<Documents<IModel>> {
+        const Model = this.model;
+        if (filter?.search) {
+            filter.$text = { $search: filter.search };
+            delete filter.search;
+        }
+        let skippedValue = 0;
+        if (options.limit && options.page)
+            skippedValue = options.limit * (options.page - 1);
+
+        const documents: IModel[] = await Model.find(filter)
+            .populate(options.populate)
+            .select(options.select)
+            .sort(options?.sort)
+            .skip(skippedValue)
+            .limit(parseInt(`${options.limit}`, 10))
+            .lean({ virtuals: true });
+
+        const count = await Model.countDocuments(filter);
+        if (options.limit) {
+            const pages = Math.ceil(count / options.limit);
+            return { pages, documents, count };
+        }
+    }
+
     /**
      * Get a document by id
      * @param {FilterQuery<IModel>} filter - Mongo filter body

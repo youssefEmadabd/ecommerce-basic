@@ -12,7 +12,7 @@ router.route('/:id')
     .delete(asyncHandler(auth), asyncHandler(ProductController.delete));
 
 router.post('/', asyncHandler(auth), asyncHandler(ProductController.create))
-
+router.get('/',asyncHandler(auth), asyncHandler(ProductController.getAll))
 router.post('/add/:id', asyncHandler(auth), asyncHandler(ProductController.addToCart))
 
 export default router;

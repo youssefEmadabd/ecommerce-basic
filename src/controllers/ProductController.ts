@@ -1,7 +1,7 @@
 import Controller from './Controller';
 import { Product, User } from '../models';
 import { ProductService, UserService } from '../services';
-import { IProduct, IUser } from '../types';
+import { IProduct, IUser, Documents } from '../types';
 import {
     RequestInterface as IReq,
 } from '../types';
@@ -13,6 +13,10 @@ const userService = new UserService(User)
 const productService = new ProductService(Product);
 
 class ProductController extends Controller<IProduct, ProductService> {
+    async getAll(req: IReq, res: IRes) {
+        const products: Documents<IProduct> = await this.service.getAllWithPagination({}, req.query)
+        res.status(httpStatus.ACCEPTED).send(products)
+    }
     async create(req: IReq, res: IRes) {
         console.log("🚀 ~ file: ProductsController.ts ~ line 16 ~ ProductsController ~ create ~ req.user.role", req.user.role)
         if (req.user.role !== 'admin' && req.user.role !== 'seller')
