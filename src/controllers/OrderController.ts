@@ -16,7 +16,10 @@ const productService = new ProductService(Product);
 
 class OrderController extends Controller<IOrder, OrderService> {
     async getAll(req: IReq, res: IRes) {
-        const orders: Documents<IOrder> = await this.service.getAllWithPagination({}, req.query)
+        const filter = req.query.status ? { status: req.query.status } : {}
+        const orders: Documents<IOrder> = await this.service.getAllWithPagination(
+            filter,
+            { limit: req.query.limit, page: req.query.page })
         res.status(httpStatus.ACCEPTED).send(orders)
     }
 
