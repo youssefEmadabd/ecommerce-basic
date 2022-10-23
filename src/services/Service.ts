@@ -67,7 +67,7 @@ export default class Service<IModel extends Document> {
         const count = await Model.countDocuments(filter);
         if (options.limit) {
             const pages = Math.ceil(count / options.limit);
-            return { pages, documents, count };
+            return { pages, count, documents };
         }
     }
 
