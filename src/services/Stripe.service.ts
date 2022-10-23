@@ -6,8 +6,8 @@ const createCheckoutSession = async (orderList: [{ price: string, quantity: numb
     const session: Stripe.Response<Stripe.Checkout.Session> = await stripe.checkout.sessions.create({
         line_items: orderList,
         mode: 'payment',
-        success_url: `${config.domain}/v1/order/response?success=true`,
-        cancel_url: `${config.domain}/v1/order/response?canceled=true`,
+        success_url: `${config.domain}/v1/orders/response?success=true`,
+        cancel_url: `${config.domain}/v1/orders/response?canceled=true`,
     });
     return session
 }
