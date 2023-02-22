@@ -87,7 +87,7 @@ Use the orders/Place Order endpoint to create a payment session. This API will r
 
 ![alt text for screen readers](./test_cards.png "test cards screenshot")
 
-After finishing the payment, you should be redirected to a page that displays success or canceled depending on weather or not he payment was successful.
+After finishing the payment, you should be redirected to a page that displays success or canceled depending on weather or not the payment was successful.
 
 Afterwards, a webhook call will be invoked to our server, and and order will be created. You can use the `orders/Get All Orders with pagination request` example to view all orders. This endpoint can filter with status in query params.
 
